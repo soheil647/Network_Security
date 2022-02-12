@@ -61,11 +61,15 @@ aes_encrypt(StuGrade,'qazWSX123!@#') FROM unbfcs.cs4415;
 SELECT * FROM `unbfcs`.`cs4415enc`;
 
 INSERT INTO unbfcs.cs4415enc (StuID, StuFName, StuLName, StuGrade) 
-VALUES (3720505,'Soheil','Shirvani',20);
+VALUES (aes_encrypt(3720505,'qazWSX123!@#'),aes_encrypt('Soheil','qazWSX123!@#'),
+aes_encrypt('Shirvani','qazWSX123!@#'),aes_encrypt(20,'qazWSX123!@#'));
 
 SELECT * FROM `unbfcs`.`cs4415enc`;
+SELECT CAST(aes_decrypt(StuID,'qazWSX123!@#') as CHAR(200)) FROM `unbfcs`.`cs4415enc` WHERE StuID=aes_encrypt(3720505,'qazWSX123!@#');
 
-UPDATE unbfcs.cs4415enc SET StuGrade=aes_decrypt(18.82,'qazWSX123!@#') WHERE StuID=aes_decrypt(3720505,'qazWSX123!@#');
+
+UPDATE unbfcs.cs4415enc SET StuGrade = aes_encrypt(18.82 ,'qazWSX123!@#') WHERE StuID =  aes_encrypt('3720505','qazWSX123!@#');
+
 
 SELECT * FROM `unbfcs`.`cs4415enc`;
 
